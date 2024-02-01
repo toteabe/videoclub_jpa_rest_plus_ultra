@@ -16,4 +16,10 @@ ng generate component categoria/edit
 
 #en tsconfig.json" en compilerOptions -> "noImplicitAny": false
 
+#Para lanzar la aplicacion
+#cd src/main/frontend/app-videoclub
+#npm install -g @angular/cli
+#npm install
+#npm start
+#ng serve
 
