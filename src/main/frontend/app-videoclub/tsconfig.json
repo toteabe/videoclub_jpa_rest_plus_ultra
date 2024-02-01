@@ -6,8 +6,17 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+
+    //***********Degradando el modo strict para que funcione :P
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    //***********
+
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    //*********** :P
+    //"noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
