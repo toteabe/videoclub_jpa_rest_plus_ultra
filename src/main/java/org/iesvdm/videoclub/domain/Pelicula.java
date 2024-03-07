@@ -22,11 +22,13 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pelicula {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_pelicula")
+    @EqualsAndHashCode.Include
     private long idPelicula;
     private String titulo;
     private String descripcion;
@@ -64,7 +66,7 @@ public class Pelicula {
     Set<Categoria> categorias = new HashSet<>();
 
     @Column(name = "ultima_actualizacion")
-    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",  shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",  shape = JsonFormat.Shape.STRING)
     private Date ultimaActualizacion;
 
 }
