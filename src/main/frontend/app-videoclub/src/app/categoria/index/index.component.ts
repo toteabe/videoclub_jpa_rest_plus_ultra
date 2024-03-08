@@ -11,6 +11,8 @@ export class IndexComponent implements OnInit {
 
   categorias: Categoria[] = [];
 
+  nombreABuscar: string;
+
   constructor(public categoriaService:CategoriaService) { }
 
   ngOnInit(): void {
@@ -25,6 +27,15 @@ export class IndexComponent implements OnInit {
       this.categorias = this.categorias.filter(cat => cat.id !== id);
       console.log('Categoria id =' + id + ' eliminada satisfactoriamente!');
     })
+  }
+
+  buscarPorNombre() {
+    this.categoriaService
+      .buscarPorNombre(this.nombreABuscar)
+      .subscribe((data: any)=> {
+      this.categorias = data.content;
+      console.log(data);
+    });
   }
 
 

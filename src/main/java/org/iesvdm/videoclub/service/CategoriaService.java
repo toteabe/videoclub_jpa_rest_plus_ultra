@@ -3,9 +3,13 @@ package org.iesvdm.videoclub.service;
 import org.iesvdm.videoclub.domain.Categoria;
 import org.iesvdm.videoclub.exception.CategoriaNotFoundException;
 import org.iesvdm.videoclub.repository.CategoriaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoriaService {
@@ -14,6 +18,13 @@ public class CategoriaService {
 
     public CategoriaService(CategoriaRepository categoriaRepository) {
         this.categoriaRepository = categoriaRepository;
+    }
+
+    public Page<Categoria> filtradoPorNombreConPaginacion(Optional<String> nombreABuscar
+            , Pageable pageable) {
+        //return this.categoriaRepository.findCategoriasByNombreContainingIgnoreCase(nombreABuscar.orElse(""), pageable);
+        return this.categoriaRepository.paginacionPorNombreContenido(nombreABuscar.orElse("")
+                , pageable);
     }
 
     public List<Categoria> all() {

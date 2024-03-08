@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {  Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { Categoria } from './categoria';
 })
 export class CategoriaService {
 
-  private apiURL = "http://localhost:8080/api/............¿?";
+  private apiURL = "http://localhost:8080/v1/api/categorias";
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,6 +20,22 @@ export class CategoriaService {
   };
 
   constructor(private httpClient: HttpClient) { }
+
+  buscarPorNombre(nombreABuscar: string): Observable<any> {
+
+    //https://angular.io/guide/http-configure-http-url-parameters
+    const options =
+      { params: new HttpParams().set('buscar-por-nombre', nombreABuscar)
+                                .set('page', 0)
+                                .set('size', 3)
+                                .set('order', 'nombre,desc')
+                                .set('order', 'ultimaActualizacion,desc')} ;
+
+    return this.httpClient.get<any>(this.apiURL, options)
+      .pipe(
+        catchError(this.errorHandler)
+      )
+  }
 
   getAll(): Observable<Categoria[]> {
     return this.httpClient.get<Categoria[]>(this.apiURL)

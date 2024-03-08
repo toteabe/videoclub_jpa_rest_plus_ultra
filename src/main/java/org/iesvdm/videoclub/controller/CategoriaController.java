@@ -5,10 +5,13 @@ import org.iesvdm.videoclub.domain.Categoria;
 import org.iesvdm.videoclub.domain.Pelicula;
 import org.iesvdm.videoclub.service.CategoriaService;
 import org.iesvdm.videoclub.service.PeliculaService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -20,6 +23,17 @@ public class CategoriaController {
 
     public CategoriaController(CategoriaService categoriaService) {
         this.categoriaService = categoriaService;
+    }
+
+    @GetMapping(value = {"","/"}, params = {"buscar-por-nombre"})
+    public Page<Categoria> filtradoPorNombreConPaginacion(@RequestParam("buscar-por-nombre")
+                                                              String buscarPorNombre
+                                                              , Pageable pageable) {
+
+        log.info("Accediendo a todas las categorías por buscar-por-nombre:" + buscarPorNombre);
+        return this.categoriaService
+                .filtradoPorNombreConPaginacion(Optional.of(buscarPorNombre)
+                                                                        , pageable);
     }
 
     @GetMapping({"","/"})
